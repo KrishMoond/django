@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Images</title>
+    <style>
+        /* 🌿 Base Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #a5d6a7, #66bb6a);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        h2 {
+            color: #1b5e20;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        /* 🖼️ Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card p {
+            padding: 10px;
+            text-align: center;
+            color: #2e7d32;
+            font-weight: 600;
+        }
+
+        /* 🔗 Link Styling */
+        a.upload-link {
+            margin-top: 40px;
+            background: #388e3c;
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+
+        a.upload-link:hover {
+            background: #2e7d32;
+        }
+
+        /* 🪴 Empty Message */
+        .empty {
+            color: #1b5e20;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px 30px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>🌿 Uploaded Images</h2>
+
+    {% if profiles %}
+    <div class="gallery">
+        {% for profile in profiles %}
+        <div class="card">
+            <img src="{{ profile.image.url }}" alt="{{ profile.name }}">
+            <p>{{ profile.name }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p class="empty">No images uploaded yet.</p>
+    {% endif %}
+
+    <a href="{% url 'upload_image' %}" class="upload-link">📤 Upload New</a>
+</body>
+</html>
